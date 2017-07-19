@@ -13,9 +13,19 @@ Database.db.collection('employees').save(employee).then((result) => {
 })
 })
 
-router.get('/', (req,res) => {
-  res.send();
+
+router.put('/', (req,res) => {
+Database.db.collection('employees').save(employee).then((result) => {
+res.send(result);
 })
+})
+
+router.get('/get-data', (req, res) => {
+  Database.db.collection('employees').find().toArray().then((result) => {
+    res.json(result);
+  })
+})
+
 
 
 

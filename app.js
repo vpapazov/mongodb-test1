@@ -9,10 +9,37 @@ let employees = require('./employees');
 let Database = require('./db');
 Database.connect();
 
-app.set('view engine', 'ejs');
 app.get('/', (req, res) => {
-  res.render('index');
+let list;
+  Database.db.collection('employees').find().toArray().then((result) => {
+    for (let i = 0; i < result.length; i++){
+      if ( i = 0)
+      {
+         list = result[i].firstName;
+      }
+      else {
+          list += result[i].firstName;
+          }
+    }
+    res.send(list);
+  })
 })
+
+/*
+app.put('/', (req, res) => {
+    Database.db.collection('employees').find().toArray().then((result) => {
+
+      let cursor = db.coll.find(),
+          i = 0;
+
+      cursor.forEach(function(x){
+          db.coll.update({_id: x._id}, {$set:{new_field:i}})
+          $i++;
+      });
+
+    })
+})*/
+
 
 
 app.use('/employees', employees);
